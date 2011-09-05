@@ -1,0 +1,55 @@
+<div style="height: 894px; overflow: scroll;">
+
+<%= form_for(@product,  :url => products_path + ".js", :html => {:multipart => true, :target => 'frame'} ) do |f|%>
+
+  <div id= "product_errors" style="display:none">
+    <%if @product.errors.any?%>
+       <ul>  
+         <% @product.errors.full_messages.each do |msg| %>  
+           <li><%= msg %></li>  
+          <% end %>
+    <%end%>
+  </div>
+  
+  <div>
+     <%= f.label "name", "Name *"  %><br/>
+     <%= f.text_field :name %>
+  </div><br/>
+   
+  <div>Choose a Retailer * &nbsp;
+     <%= hidden_field_tag :id, "1" %>
+     <%= select_tag "retaileradmin_id", options_from_collection_for_select(@retaileradmins, "id", "username")  %><br/>
+   </div><br/>
+  
+  <div>
+   <%= f.label "price", "Price *" %><br/>
+   <%= f.text_field :price %>&nbsp;$(U.S.)
+   </div><br/>
+  
+   <div>
+     <%= f.label "image", "image *" %> &nbsp;
+     <%= f.file_field :image %>
+   </div><br/>
+   
+   
+<div>
+    <%= f.label "description", "Description *" %><br /><br/>
+    <%= f.cktext_area ("description"), :height=>'300px' %>
+  </div><br/>
+  
+   <div>
+   <%= f.label "discount", "Discount *" %></br>
+   <%= f.text_field :discount, :size => "10x5" %>&nbsp;%
+   </div><br/>
+
+
+  
+  <%= ckeditor_ajax_script %>
+
+<%= f.submit "Submit" %>
+<% end %>
+	 <iframe id='frame' name="frame" style="width:1px;height:1px; border:0px" src="about:blank"></iframe>
+	 </div>
+<p>* = All fields are mandatory</p>
+
+
